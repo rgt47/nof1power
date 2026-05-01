@@ -1,4 +1,4 @@
-# nof1power
+# nof1power <a href="https://github.com/rgt47/nof1power"><img src="man/figures/logo.png" align="right" height="138" alt="nof1power hex sticker" /></a>
 
 Power Analysis and Simulation for N-of-1 Trials
 
