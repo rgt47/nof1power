@@ -1,0 +1,181 @@
+---
+title: "Quickstart Guide: nof1power"
+author: "Ronald (Ryy) G. Thomas"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quickstart Guide: nof1power}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Overview
+
+**nof1power** is a reproducible research compendium for N-of-1 trial power
+analysis and simulation. The project is built on the zzcollab framework for
+Docker-based reproducibility.
+
+## Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- Git
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/rgt47/nof1power.git
+cd nof1power
+
+# Build the Docker image (one-time setup)
+make docker-build
+```
+
+## Quick Start
+
+### Run the Analysis
+
+```bash
+# Start R session in Docker
+make r
+
+# Or run analysis script directly
+make r < analysis/scripts/analysis.R
+
+# Or render a report
+make r < 'rmarkdown::render("analysis/report/report.Rmd")'
+```
+
+### Interactive Development
+
+```bash
+# Enter development container with R session
+make docker-zsh
+
+# Or start RStudio Server
+make docker-rstudio
+# Access at http://localhost:8787
+```
+
+## Project Structure
+
+```
+nof1power/
+├── analysis/
+│   ├── data/               # Raw and derived data
+│   ├── scripts/            # Analysis code
+│   ├── report/             # Manuscript
+│   └── figures/            # Generated visualizations
+├── R/                      # Reusable R functions
+├── tests/                  # Unit tests
+├── Dockerfile              # Computational environment
+└── renv.lock               # Package versions
+```
+
+## Daily Development Workflow
+
+```bash
+# 1. Enter development container
+make docker-zsh
+
+# 2. Work in R (packages auto-captured on exit)
+library(tidyverse)
+# ... your analysis ...
+
+# 3. Exit container (automatic snapshot)
+q()
+
+# 4. Test and commit
+make docker-test
+git add .
+git commit -m "Add analysis"
+git push
+```
+
+## Common Tasks
+
+```bash
+# Start interactive R session
+make docker-zsh
+
+# Start RStudio Server
+make docker-rstudio
+
+# Run all tests
+make docker-test
+
+# Build Docker image
+make docker-build
+
+# Validate package dependencies
+make check-renv
+
+# Show all available targets
+make help
+```
+
+## Adding Packages
+
+Inside a running container:
+
+```r
+# Install a package
+install.packages("package_name")
+
+# Exit (automatic snapshot on exit)
+q()
+```
+
+The `.Rprofile` automatically calls `renv::snapshot()` on exit to capture
+new packages.
+
+## Reproducibility
+
+The project ensures reproducibility through five version-controlled
+components:
+
+1. **Dockerfile** - Computational environment
+2. **renv.lock** - Exact R package versions
+3. **.Rprofile** - R session configuration
+4. **Source code** - Analysis scripts and functions
+5. **Data** - Raw and derived datasets
+
+## Team Collaboration
+
+```bash
+# Pull team Docker image and setup
+zzcollab -u
+
+# Start development environment
+make docker-zsh
+```
+
+## Getting Help
+
+```bash
+# Brief overview
+zzcollab help
+
+# Specific topics
+zzcollab help quickstart     # Solo developer guide
+zzcollab help workflow       # Daily development
+zzcollab help docker         # Docker details
+zzcollab help renv           # Package management
+
+# List all topics
+zzcollab help --all
+```
+
+## Next Steps
+
+- `analysis/data/README.md` - Data documentation
+- `docs/` - Technical documentation
+- `CLAUDE.md` - Development guidance
