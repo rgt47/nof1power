@@ -70,3 +70,7 @@ ENV/
 node_modules/
 npm-debug.log*.Rprofile.local
 CLAUDE.md
+
+# Technical documentation tree: version-controlled locally (Dropbox),
+# but intentionally not tracked so it is never pushed to public GitHub.
+/docs/
