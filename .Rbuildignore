@@ -36,3 +36,7 @@
 ^index_files$
 ^CLAUDE\.md$
 ^\.Rprofile\.local$
+^\.cache$
+^\.zzcollab-state$
+^tooling\.lock$
+^zzcollab\.yaml$
